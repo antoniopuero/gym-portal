@@ -1,0 +1,59 @@
+{
+  "name": "gym-portal",
+  "version": "0.0.1",
+  "description": "Gym portal for online reservation",
+  "scripts": {
+    "dev": "./node_modules/.bin/nodemon --watch server.js startServer.js",
+    "start": "pm2 delete pinpoint-web; pm2 start startServer.js --name pinpoint-web",
+    "build": "webpack --progress --colors -p --config webpack.config.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/antoniopuero/gym-portal"
+  },
+  "engines": {
+    "node": "~4.0.0"
+  },
+  "license": "MIT",
+  "author": "antoniopuero",
+  "dependencies": {
+    "angular": "^1.5.0",
+    "body-parser": "^1.14.2",
+    "bootstrap": "^3.3.5",
+    "classnames": "^2.2.0",
+    "history": "^1.17.0",
+    "jade": "^1.11.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "mprogress": "^0.1.1",
+    "multer": "^1.1.0",
+    "nconf": "^0.8.2",
+    "network-address": "^1.1.0",
+    "serve-favicon": "^2.3.0",
+    "serve-static": "^1.10.0",
+    "superagent": "^1.4.0",
+    "uuid": "^2.0.1",
+    "winston": "^2.1.1"
+  },
+  "devDependencies": {
+    "babel-core": "^5.6.18",
+    "babel-eslint": "^4.1.5",
+    "babel-loader": "^5.1.4",
+    "concurrently": "^0.1.1",
+    "css-loader": "^0.21.0",
+    "eslint": "^1.10.1",
+    "express": "^4.13.3",
+    "file-loader": "^0.8.4",
+    "less": "^2.5.3",
+    "less-loader": "^2.2.1",
+    "nodemon": "^1.8.1",
+    "redux-devtools": "^3.0.0-beta-3",
+    "redux-devtools-dock-monitor": "^1.0.0-beta-3",
+    "redux-devtools-log-monitor": "^1.0.0-beta-3",
+    "style-loader": "^0.13.0",
+    "url-loader": "^0.5.6",
+    "webpack": "^1.9.11",
+    "webpack-dev-middleware": "^1.2.0",
+    "webpack-hot-middleware": "^2.2.0"
+  }
+}
