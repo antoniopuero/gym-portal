@@ -49,7 +49,7 @@ app.use(function (req, res) {
 
 app.use(errorHandler);
 
-app.listen(nconf.get("port"), nconf.get("host"), (error) => {
+app.listen(nconf.get("port"), (error) => {
   if (error) {
     console.error(error);
   } else {

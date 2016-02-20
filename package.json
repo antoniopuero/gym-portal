@@ -4,8 +4,8 @@
   "description": "Gym portal for online reservation",
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --watch server.js startServer.js",
-    "start": "pm2 delete pinpoint-web; pm2 start startServer.js --name pinpoint-web",
-    "postinstall": "webpack --progress --colors -p --config webpack.config.prod.js"
+    "start": "node startServer.js",
+    "postinstall": "/node_modules/.bin/webpack --progress --colors -p --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
