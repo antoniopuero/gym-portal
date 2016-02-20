@@ -1,1 +1,1 @@
-web: npm i && NODE_ENV=production npm run build && NODE_ENV=production npm run start
+web: NODE_ENV=production npm run start

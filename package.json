@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --watch server.js startServer.js",
     "start": "pm2 delete pinpoint-web; pm2 start startServer.js --name pinpoint-web",
-    "build": "webpack --progress --colors -p --config webpack.config.prod.js"
+    "postinstall": "webpack --progress --colors -p --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
