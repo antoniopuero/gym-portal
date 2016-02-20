@@ -48,8 +48,7 @@ app.use(function (req, res) {
 });
 
 app.use(errorHandler);
-
-app.listen(nconf.get("port"), (error) => {
+app.listen(process.env.PORT || nconf.get("port"), (error) => {
   if (error) {
     console.error(error);
   } else {
