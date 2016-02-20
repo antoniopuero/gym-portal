@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/nodemon --watch server.js startServer.js",
     "start": "node startServer.js",
-    "postinstall": "/node_modules/.bin/webpack --progress --colors -p --config webpack.config.prod.js"
+    "postinstall": "./node_modules/.bin/webpack --progress --colors -p --config webpack.config.prod.js"
   },
   "repository": {
     "type": "git",
