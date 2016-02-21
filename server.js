@@ -9,16 +9,38 @@ import url from "url";
 import path from "path";
 import serveStatic from "serve-static";
 import uuid from "uuid";
-import multer from "multer";
 import bodyParser from "body-parser";
 import fs from "fs";
 import favicon from "serve-favicon";
 import loggers from "./loggers";
 import errorHandler from "./errorHandler";
-import superagent from "superagent";
 import moment from "moment";
+import mongoose from "mongoose";
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import session from "express-session";
+const MongoStore = require("connect-mongo")(session);
+import api from "./api/routes";
+import auth from "./api/auth";
 
 let app = new require("express")();
+mongoose.connect(nconf.get("mongoQueryString"), (err) => {
+  if (err) {
+    console.log(err);
+  }
+});
+
+const db = mongoose.connection;
+
+app.whenReadyPromise = new mongoose.Promise();
+
+db.once("open", (callback) => {
+  return app.whenReadyPromise.resolve();
+});
+
+db.on("error", (err) => {
+  return app.whenReadyPromise.reject();
+});
 
 const assetsPath = path.join(__dirname, "assets");
 const staticPath = path.join(__dirname, "dist");
@@ -31,7 +53,16 @@ if (nconf.get("env") === "development") {
   app.use(webpackHotMiddleware(compiler));
 }
 
+app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
+
+app.use(session({
+  resave: true,
+  saveUninitialized: true,
+  secret: 'this is no longer a secret',
+  store: new MongoStore({ mongooseConnection: db })
+}));
 
 //app.use(favicon(path.join(__dirname, "assets/locator.png")));
 app.use("/assets", serveStatic(assetsPath));
@@ -42,6 +73,8 @@ app.set("views", viewsPath);
 app.set("view engine", "jade");
 app.locals.currentYear = moment().year();
 
+app.use("/api", api);
+app.use("/auth", auth);
 
 app.use(function (req, res) {
   res.sendFile(path.join(__dirname, "index.html"));
