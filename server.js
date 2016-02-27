@@ -61,7 +61,10 @@ app.use(session({
   resave: true,
   saveUninitialized: true,
   secret: 'this is no longer a secret',
-  store: new MongoStore({ mongooseConnection: db })
+  store: new MongoStore({
+    expires: 24 * 60 * 60 * 1000,
+    mongooseConnection: db
+  })
 }));
 
 //app.use(favicon(path.join(__dirname, "assets/locator.png")));

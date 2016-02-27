@@ -41,16 +41,39 @@ async function del(data) {
   return await wrappedRequest({ method: "delete", ...data });
 }
 
-export function login (data) {
-  return post({
+export async function login (data) {
+  let res = await post({
     url: '/auth/login',
     send: data
-  })
+  });
+
+  localStorage.setItem("user", JSON.stringify(res));
+
+  return res;
 }
 
-export function signup (data) {
-  return post({
+export async function signup (data) {
+  const res = await post({
     url: '/auth/signup',
     send: data
-  })
+  });
+  localStorage.setItem('user', JSON.stringify(res));
+  return res;
+}
+
+export async function logout (data) {
+  const res = await post({
+    url: '/auth/logout',
+    send: data
+  });
+  localStorage.removeItem('user');
+  return res;
+}
+
+export async function checkSession (data) {
+  const res = await post({
+    url: '/auth/session',
+    send: data
+  });
+  return res;
 }

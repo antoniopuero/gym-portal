@@ -4,6 +4,8 @@ import headerComponent from './components/header';
 import footerComponent from './components/footer';
 import login from './containers/login';
 import signup from './containers/signup';
+import layout from './containers/layout';
+import {checkSession} from './services/rest';
 
 const defaultViews = {
   header: headerComponent,
@@ -21,17 +23,39 @@ export default function routing ($stateProvider, $urlRouterProvider, $locationPr
   //
   // Now set up the states
   $stateProvider
-    .state('main', {
+    .state('layout', {
+      ...layout,
+      abstract: true,
+      resolve: {
+        user: ['$rootScope', async ($rootScope) => {
+          const persistedUser = JSON.parse(localStorage.getItem('user'));
+          if (!persistedUser) {
+            return null;
+          } else {
+            try {
+              const res = await checkSession(persistedUser);
+              $rootScope.user = res;
+              return res;
+            } catch (e) {
+              localStorage.removeItem('user');
+              return null;
+            }
+          }
+        }]
+      }
+    })
+    .state('layout.main', {
       url: "/",
       views: _.extend({}, defaultViews)
     })
-    .state('login', {
+
+    .state('layout.login', {
       url: "/login",
       views: _.extend({}, defaultViews, {
         main: login
       })
     })
-    .state('signup', {
+    .state('layout.signup', {
       url: "/signup",
       views: _.extend({}, defaultViews, {
         main: signup
