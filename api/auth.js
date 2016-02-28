@@ -4,7 +4,7 @@ import errors from "../utils/server-errors";
 import _ from "lodash";
 
 function selectFields(user) {
-  return _.pick(user, ['firstName', 'lastName', 'admin', 'email']);
+  return _.pick(user, ["firstName", "lastName", "email", "password", "apiToken", "calendar", "admin", "avatar"]);
 }
 
 router.post("/login", async (req, res, next) => {
@@ -47,7 +47,7 @@ router.post("/signup", async (req, res, next) => {
     if (existedUser) {
       return next(new errors.BadRequest("User with such email already exists."));
     } else {
-      const newUser = await models.user.createNewUser(_.pick(req.body, ["firstName", "lastName", "email", "password", "apiToken", "calendar", "admin", "avatar"]));
+      const newUser = await models.user.createNewUser(selectFields(req.body));
       req.session.regenerate(function () {
         req.session.user = newUser;
         res.json(selectFields(newUser));
