@@ -47,7 +47,11 @@ export default function routing ($stateProvider, $urlRouterProvider, $locationPr
     })
     .state('layout.main', {
       url: "/",
-      views: _.extend({}, defaultViews)
+      views: _.extend({}, defaultViews, {
+        main: {
+          template: "<h1>here will be smth</h1>"
+        }
+      })
     })
 
     .state('layout.profile', {
