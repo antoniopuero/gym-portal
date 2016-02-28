@@ -2,7 +2,7 @@ import template from "./profile.html";
 function Controller ($window, $rootScope) {
   var widget = new $window.TimekitBooking();
 
-  widget.init({
+  $rootScope.user && widget.init({
     email: $rootScope.user.email,
     name: `${$rootScope.user.firstName} ${$rootScope.user.lastName}`,
     apiToken: $rootScope.user.apiToken,
