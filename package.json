@@ -37,6 +37,7 @@
     "history": "^1.17.0",
     "html-loader": "^0.4.3",
     "jade": "^1.11.0",
+    "jquery": "^2.2.1",
     "less": "^2.5.3",
     "less-loader": "^2.2.1",
     "lodash": "^3.10.1",

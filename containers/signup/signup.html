@@ -1,7 +1,7 @@
 <div class="container">
     <form class="form-signup" ng-submit="onSubmit($event)">
         <h2 class="form-signin-heading">Fill your info to sign up</h2>
-        <label for="inputFirst" class="sr-only">First name</label>
+        <label for="inputFirst">First name</label>
         <input
                 type="text"
                 id="inputFirst"
@@ -12,7 +12,7 @@
                 required
                 autofocus>
 
-        <label for="inputLast" class="sr-only">Last name</label>
+        <label for="inputLast">Last name</label>
         <input
                 type="text"
                 id="inputLast"
@@ -22,7 +22,7 @@
                 ng-model="formData.lastName"
                 required>
 
-        <label for="inputEmail" class="sr-only">Email address</label>
+        <label for="inputEmail">Email address</label>
         <input
                 type="email"
                 id="inputEmail"
@@ -32,7 +32,7 @@
                 ng-model="formData.email"
                 required>
 
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword">Password</label>
         <input
                 type="password"
                 id="inputPassword"
@@ -41,7 +41,34 @@
                 name="password"
                 ng-model="formData.password"
                 required>
+        <div class="checkbox">
+            <label>
+                <input
+                        type="checkbox"
+                        name="admin"
+                        ng-model="formData.admin"
+                        required/>
+                Are you a trainer?
+            </label>
+        </div>
+        <div ng-show="formData.admin">
+            <p>Please, proceed through the account setup <a target="_blank" href="http://booking.timekit.io/setup">here</a> and specify
+                there <b>http://pro-gym.herokuapp.com/</b> as a domain name. On the last you'll got embedded code.
+                Copy it and paste in the field below</p>
+            <label for="embeddedCode">Paste generated code here</label>
+            <textarea
+                    class="form-control"
+                    id="embeddedCode"
+                    name="embeddedCode"
+                    ng-model="formData.embeddedCode"
+                    rows="5"
+            >
+                required
+            </textarea>
+
+        </div>
         <div class="alert alert-danger" ng-show="error">{{error}}</div>
+
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
 

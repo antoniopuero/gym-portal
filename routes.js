@@ -5,6 +5,7 @@ import footerComponent from './components/footer';
 import login from './containers/login';
 import signup from './containers/signup';
 import layout from './containers/layout';
+import profile from './containers/profile';
 import {checkSession} from './services/rest';
 
 const defaultViews = {
@@ -49,6 +50,12 @@ export default function routing ($stateProvider, $urlRouterProvider, $locationPr
       views: _.extend({}, defaultViews)
     })
 
+    .state('layout.profile', {
+      url: "/login",
+      views: _.extend({}, defaultViews, {
+        main: profile
+      })
+    })
     .state('layout.login', {
       url: "/login",
       views: _.extend({}, defaultViews, {

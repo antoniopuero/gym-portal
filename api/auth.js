@@ -47,7 +47,7 @@ router.post("/signup", async (req, res, next) => {
     if (existedUser) {
       return next(new errors.BadRequest("User with such email already exists."));
     } else {
-      const newUser = await models.user.createNewUser(user);
+      const newUser = await models.user.createNewUser(_.pick(req.body, ["firstName", "lastName", "email", "password", "apiToken", "calendar", "admin", "avatar"]));
       req.session.regenerate(function () {
         req.session.user = newUser;
         res.json(selectFields(newUser));

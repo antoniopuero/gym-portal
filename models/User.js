@@ -20,7 +20,10 @@ let userSchema = Schema({
     set: (password) => {
       return md5(password + nconf.get("salt"));
     }
-  }
+  },
+  apiToken: String,
+  calendar: String,
+  avatar: String
 });
 
 userSchema.methods.isPasswordValid = function (password) {
