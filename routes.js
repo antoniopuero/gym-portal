@@ -6,7 +6,8 @@ import login from './containers/login';
 import signup from './containers/signup';
 import layout from './containers/layout';
 import profile from './containers/profile';
-import {checkSession} from './services/rest';
+import adminCalendar from './containers/adminCalendar';
+import {checkSession, getAdmins, getAdmin} from './services/rest';
 
 const defaultViews = {
   header: headerComponent,
@@ -58,7 +59,41 @@ export default function routing ($stateProvider, $urlRouterProvider, $locationPr
       url: "/profile",
       views: _.extend({}, defaultViews, {
         main: profile
-      })
+      }),
+      resolve: {
+        admins: ['$rootScope', 'user', async ($rootScope, user) => {
+          if (user.admin) {
+            return null;
+          } else {
+            try {
+              const res = await getAdmins();
+              return res.admins;
+            } catch (e) {
+              return [];
+            }
+          }
+        }]
+      }
+    })
+    .state('layout.adminCalendar', {
+      url: "/admin-calendar/:adminId",
+      views: _.extend({}, defaultViews, {
+        main: adminCalendar
+      }),
+      resolve: {
+        admin: ['$rootScope', 'user', '$stateParams', async ($rootScope, user, $stateParams) => {
+          if (user.admin) {
+            return null;
+          } else {
+            try {
+              const res = await getAdmin($stateParams.adminId);
+              return res.admin;
+            } catch (e) {
+              return [];
+            }
+          }
+        }]
+      }
     })
     .state('layout.login', {
       url: "/login",

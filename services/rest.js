@@ -77,3 +77,18 @@ export async function checkSession (data) {
   });
   return res;
 }
+
+export async function getAdmins (data) {
+  const res = await get({
+    url: '/api/me/admins',
+    send: data
+  });
+  return res;
+}
+
+export async function getAdmin (adminId) {
+  const res = await get({
+    url: `/api/me/admins/${adminId}`
+  });
+  return res;
+}

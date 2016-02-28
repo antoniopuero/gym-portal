@@ -1,1 +1,7 @@
 <div id="profileBooking"></div>
+<div ng-show="!user.admin">
+    <h2>Available specialists</h2>
+    <ul>
+        <li ng-repeat="admin in admins" ui-sref="layout.adminCalendar({adminId: admin._id})" ui-state=""><a>{{admin.firstName}} {{admin.lastName}}</a></li>
+    </ul>
+</div>
