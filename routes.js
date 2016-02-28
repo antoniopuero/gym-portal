@@ -51,7 +51,7 @@ export default function routing ($stateProvider, $urlRouterProvider, $locationPr
     })
 
     .state('layout.profile', {
-      url: "/login",
+      url: "/profile",
       views: _.extend({}, defaultViews, {
         main: profile
       })
